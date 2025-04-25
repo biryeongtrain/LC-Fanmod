@@ -1,0 +1,22 @@
+{
+  "ui.clicked" : {
+    "sounds" : [
+      "lc:ui/click"
+    ],
+    "subtitle" : "subtitle.lc.ui.click"
+  },
+
+  "ui.up" : {
+    "sounds" : [
+      "lc:ui/up"
+    ],
+    "subtitle" : "subtitle.lc.ui.up"
+  },
+
+  "ui.down" : {
+    "sounds" : [
+      "lc:ui/down"
+    ],
+    "subtitle" : "subtitle.lc.ui.down"
+  }
+}
