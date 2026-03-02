@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "lc",
+	"id": "lobotomy_corporation",
 	"version": "${version}",
 	"name": "Lobotomy Corporation",
 	"description": "Fan mod of Lobotomy Corporation by Project Moon.",
@@ -15,18 +15,22 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.qf.LCInitializer"
+			"com.biryeongtrain.lc.LobotomyCorporationInitializer"
+		],
+		"fabric-gametest": [
+			"com.biryeongtrain.lc.game.containment.ContainmentChamberGameTests"
 		]
 	},
 	"mixins": [
-		"lc.mixin.json"
+		"modid.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.2",
-		"minecraft": "~1.21.5",
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {
+		"another-mod": "*"
 	}
 }

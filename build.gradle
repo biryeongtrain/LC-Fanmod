@@ -7,96 +7,110 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-    archivesName = project.archives_base_name
+	archivesName = project.archives_base_name
 }
 
 repositories {
-    maven { url 'https://maven.nucleoid.xyz' }
-    maven { url "https://maven.tomalbrc.de" }
+	mavenCentral()
+	maven { url = "https://maven.terraformersmc.com/" }
+	maven { url = "https://maven.nucleoid.xyz" }
+	maven {
+		name = "Ladysnake Libs"
+		url = 'https://maven.ladysnake.org/releases'
+	}
+	maven {
+		name = "Jared's maven"
+		url = "https://maven.blamejared.com/"
+	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        "modid" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
+	runs {
+		gametestServer {
+			inherit server
+			name "Game Test Server"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/gametest-results.xml"
+			runDir "build/gametest"
+		}
+	}
+}
 
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation include ("eu.pb4:map-canvas-api:${project.map_canvas_api_version}")
-    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
-    modImplementation include("eu.pb4:polymer-core:${project.polymer_version}")
-    modImplementation include("eu.pb4:polymer-blocks:${project.polymer_version}")
-    modImplementation include("eu.pb4:polymer-autohost:${project.polymer_version}")
-    modImplementation include("eu.pb4:sidebar-api:${project.sidebar_version}")
-    modImplementation include("eu.pb4:polymer-resource-pack:${project.polymer_version}")
-    modImplementation include("eu.pb4:polymer-virtual-entity:${project.polymer_version}")
-    modImplementation(include("eu.pb4:placeholder-api:${project.placeholder_version}"))
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation include("eu.pb4:polymer-core:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-resource-pack:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-resource-pack-extras:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-virtual-entity:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-autohost:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-blocks:${project.polymer_version}")
 
-
-    testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
+	modImplementation include("eu.pb4:placeholder-api:${project.papi_version}")
+	modImplementation include("eu.pb4:sidebar-api:${project.sidebar_api_version}")
+	modImplementation include("eu.pb4:sgui:${project.sgui_version}")
+	modImplementation include("eu.pb4:factorytools:${project.factory_tools_version}")
+	modImplementation include("eu.pb4:map-canvas-api:${project.map_canvas_version}")
+	modImplementation include("maven.modrinth:blockbench-import-library:${project.bli_version}")
 
 }
-
-test {
-    useJUnitPlatform()
-}
-
 
 processResources {
-    inputs.property "version", project.version
+	inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+	it.options.release = 21
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}" }
-    }
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}"}
+	}
 }
 
 // configure the maven publication
 publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
-            from components.java
-        }
-    }
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
-    }
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
 }
