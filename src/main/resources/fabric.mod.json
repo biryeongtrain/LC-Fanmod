@@ -15,10 +15,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.biryeongtrain.lc.LobotomyCorporationInitializer"
+			"kim.biryeong.lc.LobotomyCorporationInitializer"
 		],
 		"fabric-gametest": [
-			"com.biryeongtrain.lc.game.containment.ContainmentChamberGameTests"
+			"kim.biryeong.lc.game.containment.ContainmentChamberGameTests"
 		]
 	},
 	"mixins": [
