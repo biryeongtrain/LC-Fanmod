@@ -1,0 +1,12 @@
+{
+	"schemaVersion": 1,
+	"id": "lobotomy_corporation_gametest",
+	"version": "1.0.0",
+	"name": "Lobotomy Corporation Game Tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"kim.biryeong.lc.gametest.containment.ContainmentChamberGameTests"
+		]
+	}
+}

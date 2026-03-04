@@ -32,14 +32,15 @@ repositories {
 }
 
 loom {
-	runs {
-		gametestServer {
-			inherit server
-			name "Game Test Server"
-			vmArg "-Dfabric-api.gametest"
-			vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/gametest-results.xml"
-			runDir "build/gametest"
-		}
+}
+
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "lobotomy_corporation_gametest"
+		enableGameTests = true
+		enableClientGameTests = false
+		eula = true
 	}
 }
 

@@ -1,5 +1,7 @@
-package kim.biryeong.lc.game.containment;
+package kim.biryeong.lc.gametest.containment;
 
+import kim.biryeong.lc.game.containment.ContainmentChamber;
+import kim.biryeong.lc.game.containment.ContainmentChamberManager;
 import kim.biryeong.lc.game.data.DepartmentType;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.server.world.ServerWorld;
@@ -54,4 +56,3 @@ public final class ContainmentChamberGameTests {
         context.complete();
     }
 }
-
